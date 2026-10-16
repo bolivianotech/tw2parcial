@@ -213,7 +213,7 @@ const CFG = {
   codigo: `SIS-0151`, materia: `Tecnología Web II`, semestre: `Séptimo semestre`, anio: `2026`,
   fileKey: `sis0151`, prefijoCodigo: `TW2`, minutos: 35, ronda: 1, aprobacion: 51,
   docente: `M.Sc. Ing. Jimmy Nataniel Requena Llorentty`,
-  footer: `Universidad Privada Domingo Savio · Ingeniería de Sistemas<br>M.Sc. Ing. Jimmy Nataniel Requena Llorentty · Santa Cruz de la Sierra, 12 de Octubre del 2026`,
+  footer: `Universidad Privada Domingo Savio · Ingeniería de Sistemas · M.Sc. Ing. Jimmy Nataniel Requena Llorentty · 2026`,
   bienvenida: `<b>Primer examen parcial de Tecnología Web II.</b> Evalúa lo aprendido en las clases 01 a 04 y en sus laboratorios 1 a 4: plataforma PHP, lenguaje PHP, formularios y manejo de archivos. Son 20 preguntas en 35 minutos.`
 };
 
@@ -222,83 +222,48 @@ const BLOCKS = [
 /* ===================== CLASE 01 ===================== */
 { id: 0, short: `Plataforma PHP`, title: `Plataforma PHP y servidor local`, icon: `🖥️`, color: `blue`,
   crit: `Clase 01 · Laboratorio 1`, where: `Clase 01 · Laboratorio 1`,
-  desc: `Cómo se interpreta PHP, cómo se mezclan HTML y código, y cómo se sirve una carpeta con el servidor local.`,
+  desc: `Cómo se ejecuta PHP, dónde viven tus archivos y cómo probar tu primera página.`,
   questions: [
-  { type: `multiple`, topic: `Mezcla de HTML y PHP con saltos de línea`, w: `Clase 01 · Laboratorio 1`,
-    text: `Un archivo «plantilla.php» contiene exactamente estas líneas, en este orden:`,
-    code: `<p>Inicio</p>\n<?php\n  echo 'A';\n?>\n<?= 'B' ?>`,
+  { type: `multiple`, topic: `Etiqueta de apertura de PHP`, w: `Clase 01 · Laboratorio 1`,
+    text: `¿Cuál es la etiqueta correcta para iniciar un bloque de código PHP dentro de un archivo?`,
+    opts: [`<?php`, `<php>`, `<script language="php">`, `<?java`], correct: 0 },
+  { type: `multiple`, topic: `Carpeta del servidor local`, w: `Clase 01 · Laboratorio 1`,
+    text: `Un alumno instala XAMPP y guarda su archivo «index.php» dentro de la carpeta «htdocs/taller». ¿Qué dirección debe escribir en el navegador para verlo?`,
+    opts: [`http://localhost/taller/index.php`, `http://localhost/htdocs/taller/index.php`, `http://localhost:3306/taller/index.php`, `Abrir el archivo con doble clic desde el explorador de archivos`], correct: 0 },
+  { type: `multiple`, topic: `Función phpinfo()`, w: `Clase 01 · Laboratorio 1`,
+    text: `¿Para qué sirve la función «phpinfo()» durante el laboratorio de la plataforma?`,
     opts: [
-      `«<p>Inicio</p>» seguido de un salto de línea y luego «AB» en la misma línea.`,
-      `«<p>Inicio</p>» seguido de dos saltos de línea, luego «A» y «B» en líneas separadas.`,
-      `«<p>Inicio</p>» seguido de un salto de línea, «A», otro salto de línea y «B».`,
-      `«<p>Inicio</p>» seguido de un salto de línea y luego «  A B», con los espacios de la indentación.`
+      `Muestra la configuración y las extensiones de PHP instaladas en el servidor.`,
+      `Instala automáticamente las extensiones que faltan en el servidor.`,
+      `Reinicia el servidor Apache para aplicar los cambios del php.ini.`,
+      `Revisa la sintaxis de un archivo sin ejecutarlo.`
     ], correct: 0 },
-  { type: `multiple`, topic: `Error de análisis (Parse error)`, w: `Clase 01 · Laboratorio 1`,
-    text: `¿Cuál de los siguientes fragmentos produce un error de análisis (Parse error) al ejecutarse?`,
+  { type: `multiselect`, topic: `Ejecución de PHP en el servidor`, w: `Clase 01 · Laboratorio 1`,
+    text: `Selecciona las 3 afirmaciones correctas sobre cómo funciona una página PHP.`,
     opts: [
-      `«<?php echo 'a' ?>»`,
-      `«<?php $x = 1 echo $x; ?>»`,
-      `«<?php echo 'a';?>»`,
-      `«<?= 'a' ?>»`
-    ], correct: 1 },
-  { type: `multiple`, topic: `Directorio raíz de «php -S»`, w: `Clase 01 · Laboratorio 1`,
-    text: `Un alumno ejecuta «php -S localhost:8000» desde la carpeta «proyecto» (ubicada en el disco C), que contiene la subcarpeta «taller» con un «index.php». Luego abre «http://localhost:8000/taller/index.php». ¿Qué ocurre?`,
-    opts: [
-      `Se muestra la página, porque el directorio raíz del servidor integrado es la carpeta desde la que se ejecutó el comando.`,
-      `Aparece un 404 siempre, porque el servidor integrado exige que los archivos estén dentro de la carpeta htdocs de XAMPP.`,
-      `La página la sirve Apache de XAMPP, que escucha en el puerto 8000 por defecto.`,
-      `Se descarga el archivo «index.php» sin ejecutarlo, porque el servidor integrado no procesa PHP.`
-    ], correct: 0 },
-  { type: `multiple`, topic: `Cierre opcional de «?>»`, w: `Clase 01 · Laboratorio 1`,
-    text: `Un archivo «config.php» contiene únicamente «<?php» seguido de declaraciones PHP, sin etiqueta de cierre «?>» al final. ¿Qué afirmación es correcta?`,
-    opts: [
-      `Funciona correctamente: la etiqueta de cierre es opcional al final del archivo, y omitirla evita espacios o saltos de línea no deseados en la salida.`,
-      `Produce un Parse error, porque todo archivo PHP debe terminar con «?>».`,
-      `Muestra en pantalla el texto «<?php» junto con el resultado.`,
-      `Funciona solo con «php -S», pero Apache lo rechaza.`
-    ], correct: 0 },
-  { type: `multiselect`, topic: `Servidor integrado de PHP e intérprete`, w: `Clase 01 · Laboratorio 1`,
-    text: `Selecciona las 3 afirmaciones correctas sobre el servidor integrado de PHP y el intérprete.`,
-    opts: [
-      `Con «php -S» sin la opción «-t», el directorio raíz es la carpeta desde la que se ejecuta el comando.`,
-      `Si el servidor integrado no está en ejecución, el navegador no puede obtener la página y muestra un error de conexión.`,
-      `«php -v» muestra la configuración completa del php.ini.`,
-      `Un archivo «.php» que solo contiene HTML no pasa por el intérprete, porque no tiene etiquetas PHP.`,
-      `La etiqueta «<?=» equivale a «<?php echo».`
+      `El código PHP se ejecuta en el servidor y el navegador recibe solo el HTML resultante.`,
+      `Para que PHP procese un archivo, debe pasar por un servidor, como Apache o el servidor integrado de PHP.`,
+      `Si el archivo .php se abre directamente desde el explorador de archivos, el servidor siempre lo ejecuta antes de mostrarlo.`,
+      `El navegador ejecuta el código PHP dentro de la pestaña, igual que el JavaScript.`,
+      `Un archivo .php puede combinar texto HTML con bloques PHP.`
     ], correct: [0, 1, 4] },
-  { type: `truefalse`, topic: `Sensibilidad a mayúsculas en la etiqueta`, w: `Clase 01 · Laboratorio 1`,
-    text: `La etiqueta «<?PHP» (en mayúsculas) es inválida; debe escribirse exactamente «<?php» en minúsculas.`,
+  { type: `truefalse`, topic: `Abrir un archivo .php sin servidor`, w: `Clase 01 · Laboratorio 1`,
+    text: `Si se abre un archivo .php con doble clic desde el explorador de archivos, el navegador mostrará el resultado de ejecutar su código PHP.`,
     correct: false },
-  { type: `truefalse`, topic: `Archivos solo con HTML y el intérprete`, w: `Clase 01 · Laboratorio 1`,
-    text: `Un archivo «.php» que solo contiene HTML se envía al navegador con el mismo contenido, pero sigue pasando por el intérprete de PHP.`,
+  { type: `truefalse`, topic: `Servidor integrado de PHP`, w: `Clase 01 · Laboratorio 1`,
+    text: `El servidor de desarrollo integrado de PHP sirve para probar aplicaciones en tu equipo, pero no es adecuado para publicarlas en internet.`,
     correct: true },
-  { type: `fill`, topic: `Cierre «?>» como separador`, w: `Clase 01 · Laboratorio 1`,
-    before: `En un bloque «<?php echo 'x' ?>», el `, after: ` final puede omitirse porque la etiqueta de cierre «?>» funciona como separador de instrucciones.`,
-    opts: [`punto y coma`, `dos puntos`, `coma`, `llave`], correct: 0 }
+  { type: `fill`, topic: `Servidor integrado de PHP`, w: `Clase 01 · Laboratorio 1`,
+    before: `Para iniciar el servidor integrado de PHP desde la terminal se usa la opción `, after: ` seguida de la dirección y el puerto, como en «php -S localhost:8000».`,
+    opts: [`-S`, `-v`, `-m`, `-r`], correct: 0 }
   ]
 },
 
 /* ===================== CLASE 02 ===================== */
-{ id: 1, short: `Lenguaje PHP`, title: `Lenguaje PHP: tipos, operadores y control de flujo`, icon: `🐘`, color: `orange`,
+{ id: 1, short: `Lenguaje PHP`, title: `Lenguaje PHP: tipos, operadores y variables`, icon: `🐘`, color: `orange`,
   crit: `Clase 02 · Laboratorio 2`, where: `Clase 02 · Laboratorio 2`,
-  desc: `Precedencia, comparaciones, arreglos, bucles y tipado: trazar el código paso a paso.`,
+  desc: `Variables, tipos de datos, comparaciones y arreglos: la base de cualquier programa en PHP.`,
   questions: [
-  { type: `multiple`, topic: `Precedencia de «+» frente a «.» en PHP 8`, w: `Clase 02 · Laboratorio 2`,
-    text: `¿Qué imprime este código en PHP 8?`,
-    code: `$a = "10";\n$b = 5;\n$r = $a + $b . "3";\necho $r;`,
-    opts: [`153`, `1053`, `15`, `Error fatal: no se puede sumar una cadena a un entero.`], correct: 0 },
-  { type: `multiple`, topic: `«isset», «??» y «empty» combinados`, w: `Clase 02 · Laboratorio 2`,
-    text: `¿Qué imprime este código?`,
-    code: `$x = null;\necho isset($x) ? 'S' : 'N', $x ?? 'vacío', empty("0") ? 'T' : 'F';`,
-    opts: [`NvacíoT`, `NvacíoF`, `SvacíoT`, `Error de sintaxis por usar «??» con una variable nula.`], correct: 0 },
-  { type: `multiple`, topic: `Claves numéricas tras claves de texto`, w: `Clase 02 · Laboratorio 2`,
-    text: `¿Qué imprime este código?`,
-    code: `$p = ['a' => 1, 'b' => 2, 3];\n$p[] = 4;\necho count($p), ' ', array_key_last($p);`,
-    opts: [`4 1`, `4 3`, `3 4`, `4 0`], correct: 0 },
-  { type: `multiple`, topic: `«continue» y «break» en «foreach»`, w: `Clase 02 · Laboratorio 2`,
-    text: `¿Qué imprime este código?`,
-    code: `$total = 0;\nforeach ([3, 0, 2, 9, 1] as $n) {\n    if ($n === 0) continue;\n    if ($n > 6) break;\n    $total += $n;\n}\necho $total;`,
-    opts: [`5`, `15`, `3`, `0`], correct: 0 },
   { type: `multiple`, topic: `Tipado estricto`, w: `Clase 02 · Laboratorio 2`,
     text: `¿Qué ocurre al ejecutar este código?`,
     code: `<?php\ndeclare(strict_types=1);\n\nfunction subtotal(int $cantidad, float $precio): float {\n    return $cantidad * $precio;\n}\n\necho subtotal("3", 12.5);`,
@@ -308,87 +273,83 @@ const BLOCKS = [
       `Imprime 0, porque la cadena "3" entre comillas no se considera un número válido y se toma como cero.`,
       `Imprime 37.5 y además muestra una advertencia por la conversión implícita de la cadena a entero.`
     ], correct: 0 },
-  { type: `multiselect`, topic: `Comparaciones en PHP 8`, w: `Clase 02 · Laboratorio 2`,
-    text: `Selecciona las 3 afirmaciones correctas sobre comparaciones en PHP 8.`,
+  { type: `multiple`, topic: `Precedencia entre «+» y «.»`, w: `Clase 02 · Laboratorio 2`,
+    text: `¿Qué imprime este código en PHP 8?`,
+    code: `echo 'Total: ' . 5 + 3;`,
+    opts: [`Total: 8`, `Total: 53`, `8`, `Error de sintaxis`], correct: 0 },
+  { type: `multiple`, topic: `Comparación «==» y «===»`, w: `Clase 02 · Laboratorio 2`,
+    text: `¿Cuál es la diferencia entre los operadores «==» y «===»?`,
     opts: [
-      `«"abc" == 0» devuelve false en PHP 8.`,
-      `«"1" == "01"» devuelve true, porque ambas cadenas son numéricas y se comparan como números.`,
-      `«100 == "1e2"» devuelve true.`,
-      `«null == 0» devuelve false.`,
-      `«"1" === 1» devuelve true.`
+      `«===» compara también el tipo de dato; «==» puede convertir tipos antes de comparar.`,
+      `Son idénticos: solo cambia la velocidad con la que se ejecutan.`,
+      `«==» compara el tipo de dato; «===» compara solo el valor.`,
+      `«===» compara únicamente las direcciones de memoria de los arreglos.`
+    ], correct: 0 },
+  { type: `multiselect`, topic: `Arreglos en PHP`, w: `Clase 02 · Laboratorio 2`,
+    text: `Selecciona las 3 afirmaciones correctas sobre arreglos en PHP.`,
+    opts: [
+      `«$frutas[] = 'mango';» agrega un elemento al final del arreglo.`,
+      `«count($frutas)» devuelve la cantidad de elementos del arreglo.`,
+      `«foreach ($frutas as $clave => $valor)» recorre el arreglo con su clave y su valor.`,
+      `Un arreglo de PHP solo puede tener índices numéricos.`,
+      `Para recorrer un arreglo siempre hace falta usar «strlen()».`
     ], correct: [0, 1, 2] },
-  { type: `truefalse`, topic: `Conversión de int a float en modo estricto`, w: `Clase 02 · Laboratorio 2`,
-    text: `Con «declare(strict_types=1)», pasar un entero a un parámetro declarado como «float» es válido: PHP lo convierte a flotante sin error.`,
-    correct: true },
   { type: `truefalse`, topic: `Variables en PHP`, w: `Clase 02 · Laboratorio 2`,
     text: `En PHP, los nombres de las variables comienzan con el símbolo «$» y distinguen entre mayúsculas y minúsculas.`,
     correct: true },
-  { type: `fill`, topic: `Operador «nave espacial» «<=>»`, w: `Clase 02 · Laboratorio 2`,
-    before: `Tras ejecutar «$r = 7 <=> 3;», el valor de «$r» es `, after: `.`,
-    opts: [`1`, `-1`, `0`, `7`], correct: 0 }
+  { type: `fill`, topic: `Tipo de dato para decimales`, w: `Clase 02 · Laboratorio 2`,
+    before: `Para guardar un número con decimales, como un precio de 12.5, PHP utiliza el tipo `, after: `.`,
+    opts: [`float`, `string`, `bool`, `null`], correct: 0 }
   ]
 },
 
 /* ===================== CLASE 03 ===================== */
 { id: 2, short: `Formularios`, title: `Formularios HTML y datos en PHP`, icon: `📝`, color: `purple`,
   crit: `Clase 03 · Laboratorio 3`, where: `Clase 03 · Laboratorio 3`,
-  desc: `Qué datos envía el navegador, cómo PHP los recibe y cómo leerlos sin avisos ni fallos.`,
+  desc: `Cómo se envían, se reciben y se validan los datos de un formulario.`,
   questions: [
-  { type: `multiple`, topic: `Nombres repetidos en un formulario`, w: `Clase 03 · Laboratorio 3`,
-    text: `Un formulario contiene dos campos con el mismo atributo «name»: <input name="tel" value="7000"> y, más abajo, <input name="tel" value="6000">. Ambos se llenan y el formulario se envía con POST. ¿Qué contiene «$_POST['tel']»?`,
+  { type: `multiple`, topic: `Métodos GET y POST`, w: `Clase 03 · Laboratorio 3`,
+    text: `Un formulario registra a un socio con su carnet de identidad y su teléfono. ¿Qué método HTTP conviene usar y por qué?`,
     opts: [
-      `"6000", porque el último valor sobrescribe al anterior en el arreglo.`,
-      `"7000", porque PHP conserva siempre el primer valor recibido.`,
-      `Un arreglo con "7000" y "6000".`,
-      `Nada: el formulario no se envía y PHP lanza un error.`
+      `POST: los datos viajan en el cuerpo, no quedan en la dirección ni en el historial, y la operación modifica información.`,
+      `GET: es más rápido y permite compartir la dirección de la página con todos los datos del socio ya incluidos en ella.`,
+      `GET: porque las respuestas se guardan en caché y así no hace falta volver a enviar los datos personales del socio.`,
+      `HEAD: porque solo devuelve las cabeceras de la respuesta y, por eso, evita transmitir los datos personales del socio.`
     ], correct: 0 },
-  { type: `multiple`, topic: `Casillas no marcadas con «??»`, w: `Clase 03 · Laboratorio 3`,
-    text: `Un grupo de casillas se nombra «gustos[]». Si el usuario no marca ninguna, ¿cuál es el resultado de «count($_POST['gustos'] ?? [])»?`,
+  { type: `multiple`, topic: `Acceso a los datos enviados con POST`, w: `Clase 03 · Laboratorio 3`,
+    text: `Un formulario usa «method="post"» y un campo llamado «correo». ¿Dónde recibe PHP el valor enviado?`,
+    opts: [`En $_POST['correo']`, `En $_GET['correo']`, `En $_FILES['correo']`, `En $_SESSION['correo']`], correct: 0 },
+  { type: `multiple`, topic: `Atributo «required»`, w: `Clase 03 · Laboratorio 3`,
+    text: `¿Qué atributo de un campo «input» hace que el navegador impida enviar el formulario si el campo está vacío?`,
+    opts: [`required`, `placeholder`, `maxlength`, `autofocus`], correct: 0 },
+  { type: `multiple`, topic: `Validación en cliente y en servidor`, w: `Clase 03 · Laboratorio 3`,
+    text: `Un sitio de una asociación de apicultores calcula el total de la venta con JavaScript en el navegador, tomando el precio de un campo editable, y envía ese total al servidor. ¿Cuál es el riesgo principal?`,
     opts: [
-      `0: las casillas no marcadas no se envían, la clave no existe y «??» devuelve un arreglo vacío.`,
-      `1: siempre existe un arreglo vacío con un elemento.`,
-      `Un aviso (Notice) de índice indefinido, y el resultado es null.`,
-      `Un error fatal, porque «count()» no acepta arreglos vacíos.`
+      `Un usuario puede modificar el valor desde las herramientas del navegador antes del envío; por eso el servidor debe recalcular y validar.`,
+      `El navegador cobrará una comisión adicional por cada cálculo realizado en el cliente, lo que encarece el sitio de la asociación.`,
+      `El servidor no recibirá ningún dato, porque JavaScript no puede enviar información a otra computadora desde una página web.`,
+      `JavaScript no puede leer los campos de un formulario, así que el total calculado en el navegador siempre saldrá en cero.`
     ], correct: 0 },
-  { type: `multiple`, topic: `Conversión a «int» antes de «??»`, w: `Clase 03 · Laboratorio 3`,
-    text: `Se ejecuta el siguiente código con un campo «edad» que llegó vacío (cadena vacía):`,
-    code: `$_POST['edad'] = '';\n$edad = (int) $_POST['edad'] ?? 18;\necho $edad;`,
-    opts: [`0`, `18`, `Nada: la cadena vacía no puede convertirse a entero y lanza un error.`, `Una cadena vacía, sin conversión.`], correct: 0 },
-  { type: `multiple`, topic: `«htmlspecialchars» con comillas simples`, w: `Clase 03 · Laboratorio 3`,
-    text: `Con PHP 8.3 y sin pasar argumentos adicionales, ¿qué imprime «echo htmlspecialchars($texto);» si «$texto» vale «<b>Hola & 'adiós'</b>»?`,
-    code: `$texto = "<b>Hola & 'adiós'</b>";\necho htmlspecialchars($texto);`,
+  { type: `multiple`, topic: `Operador de fusión nula «??»`, w: `Clase 03 · Laboratorio 3`,
+    text: `En un formulario, el campo «nombre» puede no llegar. Se escribe: «$nombre = $_POST['nombre'] ?? 'Anónimo';». ¿Qué hace exactamente el operador «??»?`,
     opts: [
-      `&lt;b&gt;Hola &amp; &#039;adiós&#039;&lt;/b&gt;`,
-      `&lt;b&gt;Hola &amp; &apos;adiós&apos;&lt;/b&gt;`,
-      `&lt;b&gt;Hola &amp; 'adiós'&lt;/b&gt;`,
-      `&lt;b&gt;Hola &amp; adiós&lt;/b&gt;`
+      `Devuelve el operando izquierdo si existe y no es nulo; si no, el derecho, sin generar aviso por un índice inexistente.`,
+      `Devuelve el operando derecho cuando el izquierdo es falso, por ejemplo una cadena vacía o cero, y avisa si no existe.`,
+      `Compara ambos operandos de forma estricta, sin conversión de tipos, y devuelve verdadero o falso según el resultado.`,
+      `Concatena ambos operandos separándolos con un espacio y omite el de la derecha si el de la izquierda está vacío.`
     ], correct: 0 },
-  { type: `multiple`, topic: `Código posterior a «header(Location)»`, w: `Clase 04 · Laboratorio 4`,
-    text: `Tras guardar un registro con POST, un alumno escribe «header('Location: listado.php');» y no pone «exit;» después. ¿Qué ocurre?`,
+  { type: `multiselect`, topic: `Formularios HTML y datos enviados`, w: `Clase 03 · Laboratorio 3`,
+    text: `Selecciona las 3 afirmaciones correctas sobre los formularios HTML.`,
     opts: [
-      `El navegador recibe la redirección, pero el script sigue ejecutándose: cualquier código posterior, como un INSERT, también se ejecuta.`,
-      `El encabezado se ignora, porque «Location» solo funciona con GET.`,
-      `Se produce un error fatal de sintaxis.`,
-      `La redirección se ejecuta de inmediato y el resto del script se detiene.`
-    ], correct: 0 },
-  { type: `multiselect`, topic: `Qué datos envía un formulario`, w: `Clase 03 · Laboratorio 3`,
-    text: `Selecciona las 3 afirmaciones correctas sobre qué datos envía un formulario HTML.`,
-    opts: [
-      `Un «<input type="checkbox">» sin el atributo «checked» no envía ningún valor.`,
-      `Un campo con el atributo «disabled» no envía su valor.`,
-      `Un «<select>» cuya «<option>» no tiene atributo «value» envía el texto visible de la opción.`,
-      `Un «<input type="text" readonly>» no envía su valor.`,
-      `Un «<input type="file">» puede enviarse con «method="get"».`
+      `Con «method="post"» los datos viajan en el cuerpo de la petición.`,
+      `El atributo «name» de cada campo es la clave con la que su valor llega al servidor.`,
+      `Para subir archivos se necesita «enctype="multipart/form-data"».`,
+      `El atributo «id» de un campo es la clave con la que el servidor recibe su valor.`,
+      `El atributo «action» indica el método de envío (GET o POST).`
     ], correct: [0, 1, 2] },
-  { type: `truefalse`, topic: `«$_REQUEST» frente a «$_POST»`, w: `Clase 03 · Laboratorio 3`,
-    text: `«$_REQUEST» contiene siempre exactamente los mismos datos que «$_POST», sin importar el método de envío.`,
-    correct: false },
   { type: `truefalse`, topic: `include y require`, w: `Clase 03 · Laboratorio 3`,
     text: `«include» y «require» se comportan igual: ante un archivo inexistente, ambos detienen la ejecución con un error fatal.`,
     correct: false },
-  { type: `fill`, topic: `Leer un valor que pudo no enviarse`, w: `Clase 03 · Laboratorio 3`,
-    before: `Para leer un valor que pudo no enviarse, sin provocar un aviso, se usa el operador «`, after: `».`,
-    opts: [`??`, `?:`, `?->`, `::`], correct: 0 },
   { type: `fill`, topic: `Códigos de estado HTTP`, w: `Clase 03 · Laboratorio 3`,
     before: `El código de estado HTTP `, after: ` indica que el recurso solicitado no existe en el servidor.`,
     opts: [`404`, `200`, `301`, `500`], correct: 0 }
@@ -396,60 +357,42 @@ const BLOCKS = [
 },
 
 /* ===================== CLASE 04 ===================== */
-{ id: 3, short: `Archivos`, title: `Archivos: lectura, escritura y subida segura`, icon: `📁`, color: `teal`,
+{ id: 3, short: `Archivos`, title: `Validación, seguridad y manejo de archivos`, icon: `📁`, color: `teal`,
   crit: `Clase 04 · Laboratorio 4`, where: `Clase 04 · Laboratorio 4`,
-  desc: `Trazar lecturas y escrituras de archivos, y distinguir una subida legítima de una falsificada.`,
+  desc: `Subir, leer y escribir archivos sin abrir puertas a los atacantes.`,
   questions: [
-  { type: `multiple`, topic: `Lectura línea a línea con «fgets»`, w: `Clase 04 · Laboratorio 4`,
-    text: `El archivo «notas.txt» contiene estas líneas, con una línea vacía en medio, y termina en «tres» sin salto de línea final:`,
-    code: `uno\ndos\n\ntres`,
-    opts: [`4`, `3`, `5`, `2`], correct: 0 },
-  { type: `multiple`, topic: `«file_put_contents» con un arreglo`, w: `Clase 04 · Laboratorio 4`,
-    text: `¿Qué imprime este código?`,
-    code: `file_put_contents('datos.txt', ['uno', 'dos']);\necho file_get_contents('datos.txt');`,
-    opts: [`unodos`, `uno\ndos`, `uno dos`, `Array, con un aviso de conversión.`], correct: 0 },
-  { type: `multiple`, topic: `Confianza en el tipo que declara el cliente`, w: `Clase 04 · Laboratorio 4`,
-    text: `Un alumno valida una foto con «if ($_FILES['foto']['type'] === 'image/png')». ¿Por qué esta validación no es segura?`,
+  { type: `multiple`, topic: `Mover un archivo subido`, w: `Clase 04 · Laboratorio 4`,
+    text: `¿Qué función mueve un archivo subido desde la carpeta temporal del servidor a su ubicación definitiva?`,
+    opts: [`move_uploaded_file()`, `file_put_contents()`, `copy_file()`, `fopen()`], correct: 0 },
+  { type: `multiple`, topic: `Código de error en «$_FILES»`, w: `Clase 04 · Laboratorio 4`,
+    text: `Al subir una foto, ¿qué valor de «$_FILES['foto']['error']» indica que la subida terminó correctamente?`,
+    opts: [`0 (UPLOAD_ERR_OK)`, `1`, `4`, `-1`], correct: 0 },
+  { type: `multiple`, topic: `Modos de apertura con «fopen()»`, w: `Clase 04 · Laboratorio 4`,
+    text: `¿Qué modo de «fopen()» abre un archivo existente solo para lectura, sin modificarlo?`,
+    opts: [`'r'`, `'w'`, `'a'`, `'x'`], correct: 0 },
+  { type: `multiple`, topic: `Escritura con «FILE_APPEND»`, w: `Clase 04 · Laboratorio 4`,
+    text: `¿Qué hace «file_put_contents('registro.txt', $linea, FILE_APPEND);»?`,
     opts: [
-      `Porque el valor «type» lo envía el navegador y puede falsificarse; conviene revisar el contenido real con «finfo_file()» sobre «tmp_name».`,
-      `Porque «$_FILES» dejó de existir en PHP 8.`,
-      `Porque «image/png» no es un tipo MIME válido.`,
-      `Porque la subida no puede contener más de un archivo.`
+      `Agrega «$linea» al final del archivo, sin borrar su contenido anterior.`,
+      `Reemplaza todo el contenido de registro.txt por «$linea».`,
+      `Lee el archivo registro.txt y guarda su contenido en la variable «$linea».`,
+      `Crea una copia de seguridad de registro.txt antes de escribir.`
     ], correct: 0 },
-  { type: `multiple`, topic: `Modo «x» de «fopen»`, w: `Clase 04 · Laboratorio 4`,
-    text: `Se ejecuta «$h = fopen('registro.log', 'x');» y el archivo «registro.log» ya existe con contenido. ¿Qué ocurre?`,
+  { type: `multiselect`, topic: `Subida segura de archivos`, w: `Clase 04 · Laboratorio 4`,
+    text: `Selecciona las 3 medidas correctas al recibir la fotografía de un producto desde un formulario.`,
     opts: [
-      `«fopen» devuelve false y emite una advertencia; el contenido existente no se modifica.`,
-      `El archivo se vacía y se abre para escritura.`,
-      `El archivo se abre en solo lectura, sin advertencia.`,
-      `El contenido nuevo se agrega al final del archivo.`
-    ], correct: 0 },
-  { type: `multiple`, topic: `«move_uploaded_file» con un archivo local`, w: `Clase 04 · Laboratorio 4`,
-    text: `Un alumno llama «move_uploaded_file('/tmp/local.txt', 'destino.txt')» con un archivo que existe en el servidor, pero el resultado es false. ¿Cuál es la causa más probable?`,
-    opts: [
-      `La función solo mueve archivos que llegaron por una subida HTTP POST; para mover un archivo local debe usarse «rename()».`,
-      `Los nombres de archivo deben empezar con mayúscula.`,
-      `La carpeta «/tmp» está prohibida en PHP 8.`,
-      `El archivo destino debe existir antes de moverlo.`
-    ], correct: 0 },
-  { type: `multiselect`, topic: `Medidas para una subida segura`, w: `Clase 04 · Laboratorio 4`,
-    text: `Selecciona las 3 medidas correctas para una subida segura de imágenes.`,
-    opts: [
-      `Revisar «$_FILES['archivo']['error']» y limitar el tamaño antes de usar el archivo.`,
-      `Verificar el contenido real con «finfo_file()» sobre «tmp_name».`,
-      `Guardar el archivo fuera de la raíz web, o en una carpeta donde PHP no ejecute scripts.`,
-      `Confiar en que el nombre termine en «.jpg».`,
-      `Conservar el nombre original con «basename()», para no perder la referencia.`
+      `Verificar el tamaño y el tipo MIME real del archivo contra una lista de tipos permitidos.`,
+      `Generar un nombre nuevo y aleatorio para guardar el archivo.`,
+      `Guardarlo en una ubicación donde no se puedan ejecutar scripts.`,
+      `Confiar en la extensión del archivo que declara el cliente.`,
+      `Guardarlo con el nombre original para no perder la referencia del usuario.`
     ], correct: [0, 1, 2] },
-  { type: `truefalse`, topic: `«FILE_APPEND» y creación del archivo`, w: `Clase 04 · Laboratorio 4`,
-    text: `Con «FILE_APPEND», «file_put_contents()» crea el archivo si no existe.`,
+  { type: `truefalse`, topic: `Modo «'w'» de «fopen()»`, w: `Clase 04 · Laboratorio 4`,
+    text: `Abrir un archivo con «fopen()» en modo «'w'» borra su contenido anterior antes de escribir.`,
     correct: true },
-  { type: `truefalse`, topic: `Modo «w» de «fopen»`, w: `Clase 04 · Laboratorio 4`,
-    text: `«fopen('datos.txt', 'w')» no borra el contenido de «datos.txt» si el archivo ya existe; solo lo abre para lectura.`,
-    correct: false },
-  { type: `fill`, topic: `Nombre de archivo sin ruta`, w: `Clase 04 · Laboratorio 4`,
-    before: `La función «`, after: `» devuelve solo el nombre del archivo, sin su ruta: de «/subidas/2024/foto.png» devuelve «foto.png».`,
-    opts: [`basename`, `dirname`, `pathinfo`, `realpath`], correct: 0 },
+  { type: `fill`, topic: `Prevención de XSS al imprimir`, w: `Clase 04 · Laboratorio 4`,
+    before: `La función `, after: ` convierte caracteres como < y > en entidades HTML y ayuda a prevenir XSS al mostrar texto ingresado por el usuario.`,
+    opts: [`htmlspecialchars`, `trim`, `strlen`, `urlencode`], correct: 0 },
   { type: `fill`, topic: `Patrón Post/Redirect/Get`, w: `Clase 04 · Laboratorio 4`,
     before: `Redirigir con «header('Location: ...')» al terminar un POST exitoso, para evitar el reenvío al recargar la página, corresponde al patrón Post/Redirect/Get, abreviado `, after: `.`,
     opts: [`PRG`, `MVC`, `CRUD`, `DAO`], correct: 0 }
@@ -705,7 +648,7 @@ function showResults(rec){
   h+='<div class="card"><h2>Datos del registro</h2><div class="meta"><div><small>Estudiante</small>'+esc(rec.student.nombre)+'</div><div><small>Código</small>'+esc(rec.student.codigo)+'</div><div><small>Correo</small>'+esc(rec.student.email)+'</div><div><small>Fecha</small>'+esc(rec.at)+'</div><div><small>Asignatura</small>'+esc(CFG.materia)+' ('+esc(CFG.codigo)+')</div><div><small>Respondidas / total</small>'+res.answered+' de '+res.total+'</div><div><small>Salidas de la pantalla</small>'+(rec.exits||0)+'</div><div><small>Docente</small>'+esc(CFG.docente)+'</div><div class="code"><small>Código de verificación</small><b>'+esc(rec.code)+'</b></div></div></div>';
   h+='<button class="btn btn-blue no-print" id="b-print">Descargar mi informe (PDF)</button>';
   h+='<p class="foot no-print">Se abrirá el cuadro de impresión: elige «Guardar como PDF».</p>';
-  h+='<p class="foot">'+CFG.footer+'</p>';
+  h+='<p class="foot">'+esc(CFG.footer)+'</p>';
   $('res-wrap').innerHTML=h;
   var pb=$('b-print');if(pb)pb.onclick=function(){window.print();};
   window.scrollTo(0,0);
@@ -719,7 +662,7 @@ function init(){
   $('i-sub').textContent=CFG.materia+' ('+CFG.codigo+') · '+CFG.semestre+' · UPDS '+CFG.anio;
   $('i-n').textContent=TOTAL;$('i-min').textContent=CFG.minutos;$('i-b').textContent=BLOCKS.length;
   $('i-bienvenida').innerHTML=CFG.bienvenida;
-  $('i-foot').innerHTML=CFG.footer;
+  $('i-foot').textContent=CFG.footer;
   $('h-title').textContent='Examen parcial — '+CFG.materia;
   ['f-nombre','f-codigo','f-email'].forEach(function(id){$(id).addEventListener('input',checkIntake);});
   $('f-consent').addEventListener('change',checkIntake);
